@@ -35,13 +35,14 @@ describe "UserPages" do
 			describe "as an admin user" do
 				let(:admin) { FactoryGirl.create(:admin) }
 				before do
+					click_link('Sign out')
 					sign_in admin
 					visit users_path
 				end
 
-				it { should have_link('delete', href: user_path(User.first)) }
+				it { should have_link('Delete', href: user_path(User.first)) }
 				it "should be able to delete another user" do
-					expect { click_link('delete') }.to change(User, :count).by(-1)
+					expect { click_link('Delete') }.to change(User, :count).by(-1)
 				end
 			end
 		end
@@ -60,10 +61,10 @@ describe "UserPages" do
 
 		describe "with valid information" do
 			before do
-				fill_in "Name",			with: "Example User"
-				fill_in "Email",		with: "user@example.com"
-				fill_in "Password",		with: "foobar"
-				fill_in "Confirmation",	with: "foobar"
+				fill_in "Name",				with: "Example User"
+				fill_in "Email",			with: "user@example.com"
+				fill_in "Password",			with: "foobar"
+				fill_in "Confirm Password",	with: "foobar"
 			end
 
 			it "should create a user" do
@@ -106,7 +107,7 @@ describe "UserPages" do
 				fill_in "Name",				with: new_name
 				fill_in "Email",			with: new_email
 				fill_in "Password",			with: user.password
-				fill_in "Confirm password",	with: user.password
+				fill_in "Confirm Password",	with: user.password
 				click_button "Save changes"
 			end
 

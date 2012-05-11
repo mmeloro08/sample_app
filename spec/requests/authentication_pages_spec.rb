@@ -5,6 +5,7 @@ describe "Authentication" do
 	subject { page }
 
 	describe "signin" do
+		let(:user) { FactoryGirl.create(:user) }
 		before { visit signin_path }
 
 		describe "with invalid information" do
@@ -12,6 +13,9 @@ describe "Authentication" do
 
 			it { should have_selector('title', text: 'Sign in') }
 			it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+			it { should_not have_link('Settings', href: edit_user_path(user)) }
+			it { should_not have_link('Sign out', href: signout_path) }
+			it { should_not have_link('Users', href: users_path) }
 
 			describe "after visiting another page" do
 				before {click_link "Home" }
@@ -20,7 +24,7 @@ describe "Authentication" do
 		end
 
 		describe "with valid information" do
-			let(:user) { FactoryGirl.create(:user) }
+		#	let(:user) { FactoryGirl.create(:user) }
 		#	before do
 		#		fill_in "Email",		with: user.email
 		#		fill_in "Password",		with: user.password
