@@ -181,5 +181,8 @@ input, textarea, select, .uneditable-input {
 		&:last-child {
 			border-bottom: 1px solid $grayLighter;
 		}
+		ra {
+			float: right;
+		}
 	}
 }
